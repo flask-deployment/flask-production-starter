@@ -1,6 +1,6 @@
 # Production image for the Flask starter.
 # Guide: https://flask-deployment.com/deploy/flask-plus-docker-production-setup-complete-guide
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
