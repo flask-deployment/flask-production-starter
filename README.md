@@ -1,5 +1,8 @@
 # Flask Production Starter
 
+[![CI](https://github.com/flask-deployment/flask-production-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/flask-deployment/flask-production-starter/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A minimal, production-shaped Flask app wired up the way it's actually deployed:
 **Gunicorn + Nginx + systemd**, plus a **Docker Compose** path. Every config
 file mirrors a step-by-step guide on **[flask-deployment.com](https://flask-deployment.com)**,
