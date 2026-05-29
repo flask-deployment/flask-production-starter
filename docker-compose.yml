@@ -1,0 +1,36 @@
+# Production-style stack: Flask (Gunicorn) behind Nginx.
+# Copy .env.example to .env first, then: docker compose up --build -d
+# Guide: https://flask-deployment.com/deploy/flask-plus-docker-compose-production-setup
+services:
+  web:
+    build: .
+    env_file: .env
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+  # Optional database — uncomment, set DATABASE_URL in .env, and add `db` to
+  # the web service's depends_on.
+  # Guide: https://flask-deployment.com/deploy/flask-plus-postgresql-production-setup
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_USER: appuser
+  #     POSTGRES_PASSWORD: change-me
+  #     POSTGRES_DB: appdb
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   pgdata:

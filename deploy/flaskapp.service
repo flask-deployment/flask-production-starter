@@ -1,0 +1,19 @@
+# systemd unit for Gunicorn. Copy to /etc/systemd/system/flaskapp.service,
+# then: sudo systemctl daemon-reload && sudo systemctl enable --now flaskapp
+# Guide: https://flask-deployment.com/deploy/flask-systemd-plus-gunicorn-service-setup
+[Unit]
+Description=Gunicorn for Flask production starter
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/flaskapp
+EnvironmentFile=/etc/flaskapp/flaskapp.env
+ExecStart=/var/www/flaskapp/.venv/bin/gunicorn --config /var/www/flaskapp/gunicorn.conf.py wsgi:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
